@@ -59,12 +59,9 @@ while not should_quit:
             break # Prevent holding left and right
 
     if round_is_over:
-        print(prompt_timer)
         attempt += 1
         prompt = None
         prompt_timer = (250 + random.randint(0, max(3000 - (attempt * 100), 1))) / 1000
-        print(prompt_timer)
-        print("")
         if attempt > 20:
             should_quit = True
             display_score = True

@@ -2,6 +2,7 @@
 
 import pygame
 import random
+import typing
 
 should_quit = False
 display_score = False
@@ -9,12 +10,11 @@ display_score = False
 score = 0
 attempt = 0
 
-# "LEFT" or "RIGHT"
-prompt = None
+prompt: typing.Optional[typing.Literal["LEFT", "RIGHT"]] = None
 
 # Positive - Seconds until a "new prompt" event
 # Negative - Seconds since a "new prompt" event
-prompt_timer = 3
+prompt_timer = 3.0
 
 pygame.init()
 pygame.display.set_caption("<- OR ->")
@@ -35,7 +35,7 @@ while not should_quit:
     prompt_timer -= (time_passed / 1000)
 
     if prompt_timer <= 0 and prompt is None:
-        prompt = random.choice(("RIGHT", "LEFT"))
+        prompt = random.choice(["RIGHT", "LEFT"])
 
     if prompt_timer < min(-3 + (0.2 * attempt), -0.5):
         round_is_over = True

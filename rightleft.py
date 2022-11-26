@@ -20,15 +20,17 @@ pygame.init()
 pygame.display.set_caption("<- OR ->")
 pygame.mouse.set_visible(False)
 
+FRAMES_PER_SECOND = 60
+
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((480, 360))
 background = pygame.surface.Surface(screen.get_size())
-background.fill(pygame.color.Color(0,0,0))
+background.fill(pygame.color.Color("black"))
 font = pygame.font.Font(None, 60)
 
 while not should_quit:
     round_is_over = False
-    time_passed = clock.tick(60)
+    time_passed = clock.tick(FRAMES_PER_SECOND)
 
     prompt_timer -= (time_passed / 1000)
 
@@ -39,7 +41,7 @@ while not should_quit:
         round_is_over = True
 
     screen.blit(background, (0,0))
-    screen.blit(font.render(f"score: {score}", True, pygame.color.Color(255,255,255)), (0,300))
+    screen.blit(font.render(f"score: {score}", True, pygame.color.Color("white")), (0,300))
     if prompt is not None:
         screen.blit(font.render(prompt, True, pygame.color.Color(255,255,255)), (0,0))
     pygame.display.flip()
@@ -68,10 +70,10 @@ while not should_quit:
             display_score = True
 
 if display_score:
-    score_text = font.render(f"Score: {score}", True, (255,255,255))
+    score_text = font.render(f"Score: {score}", True, pygame.color.Color("white"))
     should_quit = False
     while not should_quit:
-        clock.tick(60)
+        clock.tick(FRAMES_PER_SECOND)
         screen.blit(background, (0,0))
         screen.blit(score_text, (0,0))
         pygame.display.flip()

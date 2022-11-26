@@ -51,10 +51,9 @@ while not should_quit:
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             should_quit = True
         elif event.type == pygame.KEYDOWN and event.key in (pygame.K_LEFT, pygame.K_RIGHT):
-            if event.key == pygame.K_RIGHT and prompt == "RIGHT":
+            if (event.key == pygame.K_RIGHT and prompt == "RIGHT") or (event.key == pygame.K_LEFT and prompt == "LEFT"):
                 score += 1
-            elif event.key == pygame.K_LEFT and prompt == "LEFT":
-                score += 1
+
             round_is_over = True
             break # Prevent holding left and right
 

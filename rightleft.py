@@ -28,6 +28,11 @@ background = pygame.surface.Surface(screen.get_size())
 background.fill(pygame.color.Color("black"))
 font = pygame.font.Font(None, 60)
 
+def add_attempt_record(color):
+    block = pygame.surface.Surface((10, 10))
+    block.fill(color)
+    background.blit(block, ((attempt * 15), 200))
+
 while not should_quit:
     round_is_over = False
     time_passed = clock.tick(FRAMES_PER_SECOND)
@@ -39,6 +44,7 @@ while not should_quit:
 
     if prompt_timer < min(-3 + (0.2 * attempt), -0.5):
         round_is_over = True
+        add_attempt_record("grey")
 
     screen.blit(background, (0,0))
     screen.blit(font.render(f"score: {score}", True, pygame.color.Color("white")), (0,300))
@@ -50,9 +56,12 @@ while not should_quit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             should_quit = True
-        elif event.type == pygame.KEYDOWN and event.key in (pygame.K_LEFT, pygame.K_RIGHT):
+        elif event.type == pygame.KEYDOWN and event.key in (pygame.K_LEFT, pygame.K_RIGHT) and not round_is_over:
             if (event.key == pygame.K_RIGHT and prompt == "RIGHT") or (event.key == pygame.K_LEFT and prompt == "LEFT"):
                 score += 1
+                add_attempt_record("green")
+            else:
+                add_attempt_record("red")
 
             round_is_over = True
             break # Prevent holding left and right

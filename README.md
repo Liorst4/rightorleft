@@ -16,3 +16,6 @@ Try to score a perfect 20
 ### Requirements
 * python3
 * pygame
+
+## License
+This code is licensed under the MIT license

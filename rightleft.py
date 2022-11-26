@@ -4,6 +4,7 @@ import pygame
 import random
 
 should_quit = False
+display_score = False
 
 score = 0
 attempt = 0
@@ -64,5 +65,19 @@ while not should_quit:
         print("")
         if attempt > 100:
             should_quit = True
+            display_score = True
+
+if display_score:
+    score_text = font.render(f"Score: {score}", True, (255,255,255))
+    should_quit = False
+    while not should_quit:
+        clock.tick(60)
+        screen.blit(background, (0,0))
+        screen.blit(score_text, (0,0))
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                should_quit = True
+
 
 pygame.quit()
